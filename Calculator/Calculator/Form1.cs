@@ -13,9 +13,8 @@ namespace Calculator
     public partial class Calculator : Form
     {
         public static Calculator1 calc;
-        double memory;
-        string symbol;
-
+        double mem =0;
+       
           public Calculator()
         {
             InitializeComponent();
@@ -44,35 +43,6 @@ namespace Calculator
             }
         }
 
-        private void button18_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button;
-            if (Display.Text == "0")
-            {
-                Display.Text = "0";
-            }
-            else
-            {
-                Display.Text += btn.Text;
-            }
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void C(object sender, EventArgs e)
         {
             Display.Text = "0";
@@ -93,6 +63,8 @@ namespace Calculator
         {
             Button btn = sender as Button;
             calc.saveFirstNumber(Display.Text);
+            //calc.FirstNumber += calc.FirstNumber;
+            //calc.FirstNumber += calc.FirstNumbe;
             calc.operation = btn.Text;
             Display.Text = "";
 
@@ -127,9 +99,17 @@ namespace Calculator
         {
             calc.saveSecondNumber(Display.Text);
             calc.calculate();
-            Display.Text = calc.result.ToString();
-            calc.FirstNumber = double.Parse(Display.Text);
+            if (calc.result == calc.FirstNumber / 0)
+            {
+                Display.Text = "Деление на ноль невозможно";
+                
 
+            }
+            else
+            {
+                Display.Text = calc.result.ToString();
+                calc.FirstNumber = double.Parse(Display.Text);
+            }
 
         }
 
@@ -145,12 +125,81 @@ namespace Calculator
         {
             Button btn = sender as Button;
             calc.saveFirstNumber(Display.Text);
-            Display.Text = Convert.ToString(1 / calc.FirstNumber);
+            if (calc.FirstNumber == 0)
+            {
+                Display.Text = "Деление на ноль невозможно";
+            }
+            else
+            {
+                Display.Text = Convert.ToString(1 / calc.FirstNumber);
+            }
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void backspace_Click(object sender, EventArgs e)
+        {    int a;
+            a = int.Parse(Display.Text);
             Button btn = sender as Button;
+            if (Display.Text!="" && a%10!=a)
+            {
+                Display.Text = calc.Back(Display.Text);
+            }
+            else if (a%10==a) 
+            {
+                Display.Text = "0";
+            }
+            else
+            {
+                Display.Text = "0";
+            }
+        }
+
+        private void zero_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (Display.Text == "0")
+            {
+                Display.Text = "0";
+            }
+            else
+            {
+                Display.Text += btn.Text;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void memory_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            switch (btn.Text)
+            {
+                case "MS":
+                    mem = double.Parse(Display.Text);
+                    Display.Text = "";
+                    break;
+                case "M+":
+                    mem = mem + double.Parse(Display.Text);
+                    break;
+                case "M-":
+                    mem = mem - double.Parse(Display.Text);
+                    break;
+                case "MR":
+                    Display.Text = mem.ToString();
+                    break;
+                case "MC":
+                    mem = 0;
+                    Display.Text = "0";
+                    break;
+
+            }
 
         }
     }

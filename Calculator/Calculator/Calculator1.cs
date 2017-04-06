@@ -12,11 +12,13 @@ namespace Calculator
         public double SecondNumber;
         public string operation;
         public double result;
+        //public double FirstNumbe;
 
         public Calculator1 ()
         {
             FirstNumber = 0;
             SecondNumber = 0;
+           // FirstNumbe = 0;
 
         }
 
@@ -48,6 +50,16 @@ namespace Calculator
                     break;
 
             }
+        }
+        public string Back (string s)
+        {
+            string text = "";
+            char[] c = s.ToCharArray();
+            for (int i = 0; i < s.Length -1; i++)
+            {
+                text = text + c[i];
+            }
+            return text;
         }
 
         /*ublic double GetPlus()
